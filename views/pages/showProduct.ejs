@@ -1,0 +1,29 @@
+<%- include('../partials/header'); -%>
+    <div class="container">
+        <a onclick="window.history.back();" class="btn btn-light" style="margin-bottom:-55px">Back</a>
+        <div class="card border-danger mt-5 ">
+            <div class="card-header bg-danger text-white">
+                <h1>Product Details</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="" style="width:220px; height:220px;" alt="Product Picture">
+                    </div>
+                    <div class="col-md-8">
+                        <h1>
+                            <%- product[0].productName.toUpperCase() -%>
+                        </h1>
+                        <p>
+                            <b>Price:</b> $
+                            <%- product[0].unitPrice -%><br>
+                                <b>Quantity:</b>
+                                <%- product[0].quantity -%> <br>
+                        </p>
+                        <a href="#" class="btn btn-primary">Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+    </div>
+    <%- include('../partials/footer'); -%>

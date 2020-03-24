@@ -1,0 +1,24 @@
+{
+  "name": "node_js_crud",
+  "version": "1.0.0",
+  "description": "This is a simple node js crud app by essaadani",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Es-saadani Mohamed",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.4.1",
+    "dateformat": "^3.0.3",
+    "ejs": "^3.0.1",
+    "ejs-lint": "^1.0.1",
+    "express": "^4.17.1",
+    "express-partials": "^0.3.0",
+    "jquery": "^3.4.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "tether": "^1.4.7"
+  }
+}

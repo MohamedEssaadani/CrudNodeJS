@@ -1,0 +1,7 @@
+   "body-parser": "^1.19.0", //this for getting data from forms 
+    "bootstrap": "^4.4.1",//css framework for beautiful & responsive layouts
+    "dateformat": "^3.0.3",
+    "ejs": "^3.0.1",//its template engine like blade in LARAVEL & razor in ASP
+    "express": "^4.17.1", //this is node js framework to help us working with routes and more..
+    "jquery": "^3.4.1",//js library 
+    "mysql": "^2.18.1"// install mysql module to work with mysql db

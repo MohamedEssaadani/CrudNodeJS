@@ -1,0 +1,43 @@
+<%- include('../partials/header'); -%>
+
+    <div class="container">
+        <a onclick="window.history.back();" class="btn btn-light" style="margin-bottom:-55px">Back</a>
+        <div class="card border-success mt-5">
+            <div class="card-header bg-primary text-white ">
+                <h1>Edit Product</h1>
+            </div>
+            <div class="card-body">
+                <form action="/product/new" method="POST" enctype="multipart/form-data" <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" class="form-control" name="productName">
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" name="category">
+                <% categories.forEach((category, index)=>{%>
+                <option value="<%- category.id -%> "><%- category.categoryName -%> </option>
+                <% }) %>
+            </select>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" id="price" class="form-control" name="price">
+            </div>
+            <div class="form-group">
+                <label for="qte">Quantity</label>
+                <input type="number" id="qte" class="form-control" name="qte">
+            </div>
+            <div class="form-group">
+                <label for="img">Image</label>
+                <input type="file" id="img" class="form-control" name="img" accept="images/*">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" name="submit"><i class="fa fa-save"></i>
+                Enregistrer</button>
+                <button type="reset" class="btn btn-danger"><i class="fa fa-undo"></i> Annuler</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    <%- include('../partials/footer'); -%>
