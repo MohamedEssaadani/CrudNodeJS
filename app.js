@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const app = express();
 const bodyParser = require('body-parser');
 var multer = require('multer');
+var path = require('path')
 
 //Parse form data, get data when form is submitted & parse it into json format
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,26 +18,13 @@ const now = new Date();
 //set ejs for this app
 app.set('view engine', 'ejs');
 
-//Upload Image set up: 
-
-var Storage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        callback(null, "./Images");
-    },
-    filename: function(req, file, callback) {
-        callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
-    }
-});
-
-var upload = multer({
-    storage: Storage
-}).array("img", 3); //Field name and max count
 
 //import js & css file to use in this app
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist/js'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/uploads', express.static(__dirname + '/public/uploads'));
 
 //Connect to mysql
 const con = mysql.createConnection({
@@ -77,23 +65,59 @@ app.get('/product/new', (req, res) => {
     })
 });
 
+//Set up image upload
+const storage = multer.diskStorage({
+    destination: './public/uploads/',
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+// Check File Type
+function checkFileType(file, cb) {
+    // Allowed ext
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check ext
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // Check mime
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb('Error: Images Only!');
+    }
+}
+// Init Upload
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 1000000 },
+    fileFilter: function(req, file, cb) {
+        checkFileType(file, cb);
+    }
+}).single('img');
+
+
 app.post('/product/new', (req, res) => {
-    let query = "INSERT INTO PRODUCT (productName, categoryId, unitPrice, quantity) VALUES (";
-    query += "'" + req.body.productName + "',";
-    query += "'" + req.body.category + "',";
-    query += "" + req.body.price + ",";
-    query += "" + req.body.qte + ")";
+
+    upload(req, res, function(err) {
+        if (err) {
+            res.end('Image ERROR..');
+        } else {
+            let query = "INSERT INTO PRODUCT (productName, categoryId, unitPrice, quantity, image) VALUES (";
+            query += "'" + req.body.productName + "',";
+            query += "'" + req.body.category + "',";
+            query += "" + req.body.price + ",";
+            query += "" + req.body.qte + ",";
+            query += "'" + req.file.filename + "')";
+
+            con.query(query, (err, result) => {
+                if (err) throw err;
+                res.redirect(baseUrl);
+            })
+        }
+    });
 
 
-    con.query(query, (err, result) => {
-        upload(req, res, function(err) {
-            if (err) {
-                return res.end("Something went wrong!");
-            }
-            res.redirect(baseUrl);
-
-        });
-    })
 });
 
 
