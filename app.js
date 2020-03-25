@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const app = express();
 const bodyParser = require('body-parser');
 var multer = require('multer');
-var path = require('path')
+var path = require('path');
 
 //Parse form data, get data when form is submitted & parse it into json format
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -184,7 +184,7 @@ app.post('/product/edit', (req, res) => {
                         PRODUCTNAME = '${req.body.productName}',
                         CATEGORYID    = IFNULL('${req.body.category}', 0), 
                         UNITPRICE       = ${req.body.price}, 
-                        IMAGE = '${req.file.filename}',
+                        IMAGE = IFNULL('${req.file.filename}', 'No image'),
                         QUANTITY    = ${req.body.qte}
                         WHERE REFERENCE = ${req.body.reference}`;
 

@@ -9,7 +9,7 @@
             <div class="card-body">
                 <form action="/product/new" method="POST" enctype="multipart/form-data">
                     <label for="productName">Product Name</label>
-                    <input type="text" id="productName" class="form-control" name="productName">
+                    <input type="text" id="productName" class="form-control" name="productName" required>
                     <div class="form-group">
                         <label for="category">Category</label>
                         <select class="form-control" name="category">
@@ -20,20 +20,20 @@
                     </div>
                     <div class="form-group">
                         <label for="price">Price</label>
-                        <input type="text" id="price" class="form-control" name="price">
+                        <input type="text" id="price" class="form-control" name="price" required>
                     </div>
                     <div class="form-group">
                         <label for="qte">Quantity</label>
-                        <input type="number" id="qte" class="form-control" name="qte">
+                        <input type="number" id="qte" class="form-control" name="qte" required>
                     </div>
                     <div class="form-group">
                         <label for="img">Image</label>
-                        <input type="file" id="img" class="form-control" name="img" accept="images/*">
+                        <input type="file" id="img" class="form-control" name="img" accept="images/*" required>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary" name="submit"><i class="fa fa-save"></i>
-                        Enregistrer</button>
-                        <button type="reset" class="btn btn-danger"><i class="fa fa-undo"></i> Annuler</button>
+                        Save</button>
+                        <button type="reset" class="btn btn-danger"><i class="fa fa-undo"></i> Cancel</button>
                     </div>
                 </form>
             </div>
