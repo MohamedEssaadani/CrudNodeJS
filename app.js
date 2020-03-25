@@ -175,16 +175,24 @@ app.get('/product/edit/:id', (req, res) => {
 });
 
 app.post('/product/edit', (req, res) => {
-    let query = `UPDATE PRODUCT SET 
-    PRODUCTNAME = '${req.body.productName}',
-    CATEGORYID    = IFNULL('${req.body.category}', 0), 
-    UNITPRICE       = ${req.body.price}, 
-    QUANTITY    = ${req.body.qte}
-    WHERE REFERENCE = ${req.body.reference}`;
 
-    con.query(query, (err, result) => {
-        if (err) throw err;
-        res.redirect(baseUrl);
+    upload(req, res, function(err) {
+        if (err) {
+            res.end('Image ERROR..');
+        } else {
+            let query = `UPDATE PRODUCT SET 
+                        PRODUCTNAME = '${req.body.productName}',
+                        CATEGORYID    = IFNULL('${req.body.category}', 0), 
+                        UNITPRICE       = ${req.body.price}, 
+                        IMAGE = '${req.file.filename}',
+                        QUANTITY    = ${req.body.qte}
+                        WHERE REFERENCE = ${req.body.reference}`;
+
+            con.query(query, (err, result) => {
+                if (err) throw err;
+                res.redirect(baseUrl);
+            })
+        }
     });
 });
 //Create a server & connect

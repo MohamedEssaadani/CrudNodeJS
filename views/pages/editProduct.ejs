@@ -7,7 +7,7 @@
                 <h1>Edit Product</h1>
             </div>
             <div class="card-body">
-                <form action="/product/edit" method="POST">
+                <form action="/product/edit" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="reference" value="<%-object.product[0].reference-%>">
                     <div class="form-group">
                         <label for="productName">Product Name</label>
@@ -32,8 +32,8 @@
                         <input type="number" id="qte" class="form-control" name="qte" value="<%- object.product[0].quantity -%>">
                     </div>
                     <div class="form-group">
-                        <label for="image">Image</label>
-                        <input type="file" id="image" class="form-control" name="img" accept="images/*">
+                        <label for="img">Image</label>
+                        <input type="file" id="img" class="form-control" name="img" accept="images/*">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary" name="submit"><i class="fa fa-save"></i>
